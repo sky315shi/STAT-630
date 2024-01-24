@@ -1,0 +1,30 @@
+---
+title: "Shi.Chunlin.Hw3"
+author: "Chunlin Shi"
+date: "2023-09-17"
+output: pdf_document
+---
+
+<style type="text/css">
+  body{
+  
+  font-size: 16pt;
+}
+</style>
+
+# Q1
+```{r}
+n = 10
+
+for (N in c(50, 100, 1000)) {
+    M = N * 0.6
+    prob_Hyper = dhyper(0:10, M, N-M, n)
+    prob_Binomial = dbinom(0:10,n,0.6)
+    plot(0:10, prob_Hyper, xlab="X", ylab="Probability", type="l", main = paste("N=",N,sep=""))
+    lines(0:10, prob_Binomial, col="red")
+    legend("topright", c("Hypergeometric","Binomial"), col=c("black","red"), lty=1, cex=0.6)
+    
+}
+```
+
+From the graphs above, we can clearly see that when N is getting larger, the approximation gets better

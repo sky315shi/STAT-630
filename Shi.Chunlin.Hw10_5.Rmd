@@ -1,0 +1,59 @@
+---
+title: "Hw10_Q5"
+author: "Chunlin Shi"
+date: "2023-11-13"
+output: pdf_document
+---
+
+<style type="text/css">
+  body{
+  
+  font-size: 16pt;
+}
+</style>
+# Q5
+## (a)
+```{r}
+getwd()
+setwd("C:/Users/95223/OneDrive - Texas A&M University/TAMU/STAT 630/R files")
+data <- read.csv("poisson_sample.csv")
+
+lambda_data <- mean(data$T)
+sigma_data <- sqrt(lambda_data)
+n <- 150
+confidence_level <- 0.95
+
+z_critical <- qnorm((1 + confidence_level) / 2)
+margin_of_error <- z_critical * sigma_data
+wald_interval <- c(lambda_data - margin_of_error, lambda_data + margin_of_error)
+cat("Wald Confidence Interval:", wald_interval, "\n")
+```
+
+## (b)
+```{r}
+observed_information <- 1 / lambda_data
+margin_of_error <- z_critical * sqrt(observed_information / n)
+score_interval <- c(lambda_data - margin_of_error, lambda_data + margin_of_error)
+cat("Score Confidence Interval:", score_interval, "\n")
+```
+
+## (c)
+```{r}
+B <- 10000 
+bootstrap_samples <- numeric(B)
+
+for (i in 1:B) {
+  bootstrap_sample <- sample(data$T, replace = TRUE)
+  lambda_bootstrap <- mean(bootstrap_sample)
+  sigma_bootstrap <- sqrt(lambda_bootstrap)
+  
+  bootstrap_samples[i] <- sigma_bootstrap
+}
+
+bootstrap_se <- sd(bootstrap_samples)
+margin_of_error <- z_critical * bootstrap_se
+bootstrap_interval <- c(lambda_data - margin_of_error, lambda_data + margin_of_error)
+
+cat("Bootstrap Confidence Interval:", bootstrap_interval, "\n")
+```
+

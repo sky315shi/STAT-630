@@ -1,0 +1,53 @@
+---
+title: "Shi.Chunlin.hw1"
+author: "Chunlin Shi"
+date: "2023-08-31"
+output: pdf_document
+---
+
+<style type="text/css">
+  body{
+  
+  font-size: 16pt;
+}
+</style>
+
+# Q5
+## (a)
+```{r}
+num_simulation = 100000
+sample_size = 100
+dup.true = rep(0,num_simulation)
+
+for (i in 1:num_simulation) {
+  sample = sample(0:9999, sample_size, replace = TRUE)
+  dup.true[i] = (length(unique(sample))!=sample_size)
+}
+estimated_prob = sum(dup.true)/num_simulation
+estimated_prob
+```
+
+## (b)
+In this case, we have:
+```{r}
+prob = 1-exp(lfactorial(10000)-lfactorial(10000-100)-100*log(10000))
+prob
+```
+
+## (c)
+In this case, we can use a while loop to find the smallest enrollment number
+```{r}
+desired_prob = 0.50
+enrollment = 2
+
+while (TRUE) {
+  current_prob = 1-exp(lfactorial(10000)-lfactorial(10000-enrollment)-enrollment*log(10000))
+  if (current_prob >= desired_prob) {
+    break
+  }
+  enrollment = enrollment + 1
+}
+
+enrollment
+```
+

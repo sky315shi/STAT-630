@@ -1,0 +1,40 @@
+---
+title: "Shi.Chunlin.Hw3_2"
+author: "Chunlin Shi"
+date: "2023-09-17"
+output: pdf_document
+---
+
+<style type="text/css">
+  body{
+  
+  font-size: 16pt;
+}
+</style>
+
+# Q7
+## (a)
+```{r}
+mu = -8
+sigma = 2
+pnorm(-5, mean = mu, sd = sigma)
+```
+
+## (b)
+```{r}
+print(pnorm(7, mean = mu, sd = sigma)-pnorm(-2, mean = mu, sd = sigma))
+```
+
+## (c)
+```{r}
+print(1-pnorm(3, mean = mu, sd = sigma))
+```
+
+## (d)
+```{r}
+## 40th Percentile
+print(qnorm(p = 0.4, mean = mu, sd = sigma))
+## 77th Percentile
+print(qnorm(p = 0.77, mean = mu, sd = sigma))
+```
+

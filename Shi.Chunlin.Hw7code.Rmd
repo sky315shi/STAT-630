@@ -1,0 +1,82 @@
+---
+title: "Shi.Chunlin.Hw7code"
+author: "Chunlin Shi"
+date: "2023-10-18"
+output: pdf_document
+---
+
+<style type="text/css">
+  body{
+  
+  font-size: 16pt;
+}
+</style>
+# Question 5
+We first set up the parameters
+```{r}
+n_1 = 20
+n_2 = 50
+lambda = 5
+N = 10^5
+```
+
+We now create a vector to store the proportion of value between 0.19 and 0.21
+```{r}
+proportions_1 = numeric(N)
+proportions_2 = numeric(N)
+```
+
+Now, we generate the distribution
+```{r}
+for (i in 1:N) {
+  X_1 = rexp(n_1, rate = lambda)
+  Mean_1 = mean(X_1)
+  X_2 = rexp(n_2, rate = lambda)
+  Mean_2 = mean(X_2)
+  
+  proportions_1[i] <- as.numeric(Mean_1 >= 0.19 & Mean_1 <= 0.21)
+  proportions_2[i] <- as.numeric(Mean_2 >= 0.19 & Mean_2 <= 0.21)
+}
+```
+
+Now we calculate the results:
+```{r}
+res_n1 = sum(proportions_1) / N
+res_n2 = sum(proportions_2) / N
+
+res_n1
+res_n2
+```
+
+From above, we can see that there are about 18% of the M_20 and 28% of M_50 values are between the limits, which reflects increasing concentration of M_n as n increases.
+
+\newpage
+
+# Question 6
+## (d)
+For the exact distribution
+```{r}
+# (a) n = 16
+p_exact_a = pgamma(2.5, shape = 16, rate = 16*0.5)
+p_exact_a
+# (b) n = 36
+p_exact_b = pgamma(2.5, shape = 36, rate = 36*0.5)
+p_exact_b
+# (c) n = 100
+p_exact_c = pgamma(2.5, shape = 100, rate = 100*0.5)
+p_exact_c
+```
+
+## (e)
+In this case
+```{r}
+N = 10^5
+n = 100
+
+samples = matrix(rgamma(N*n, shape =n, rate = n*0.5), ncol = n)
+sample_means <- rowMeans(samples)
+
+# Plot a histogram
+hist(sample_means, breaks = 30, main = "Histogram of Sample Means", xlab = "Sample Mean")
+```
+From the graph above, it looks normal.
